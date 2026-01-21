@@ -1,1 +1,5 @@
 # Darwin-NoteBook
+
+Figma link : https://www.figma.com/design/N25YY0QI7P3XTjiBcTj1YM/Untitled?node-id=0-1&t=k6U0hDBOykRPC3gP-1
+
+Miro link : https://miro.com/welcomeonboard/RXk4c2NibjZEYXlVUnQ3U083VEk0bVNkaXA2V0VlV0tBa0dBa3lVSmZvQmNGbG9IL3F1clo2b1gyK1A3VC9iMytVUTFwZUhoR0xTM2dmTG91MkYrdkdUOVdIZlJlRSt5RVNtNkxIZW9vbnNOOFQ1YzBKQzdQN3FKYWRNYVJDdC9hWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=738127673674
