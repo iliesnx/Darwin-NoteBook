@@ -4,7 +4,8 @@ const { getDefaultConfig } = require('expo/metro-config');
 const config = getDefaultConfig(__dirname);
 
 // Add 'bin' to assetExts to support TensorFlow.js model weights
-config.resolver.assetExts.push('bin');
+// Add 'glb', 'gltf' for 3D models
+config.resolver.assetExts.push('bin', 'glb', 'gltf');
 
 // Mock react-native-fs for Expo Go
 config.resolver.sourceExts.push('cjs');
