@@ -42,6 +42,8 @@ Dans l'onglet Duel de l'application le joueur peux combattre façe a d'autres jo
 
 ## 🎨 Identité Visuelle (UI/UX)
 
+https://www.figma.com/design/N25YY0QI7P3XTjiBcTj1YM/Untitled?node-id=0-1&p=f&t=bpbpMT6nnry5x14v-0
+
 L'identité graphique repose sur le concept **"Solarpunk Utility"** : un mix entre **IOS 26** et l'esthétique **Solarpunk**.
 
 ### Palette de Couleurs
