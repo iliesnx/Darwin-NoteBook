@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import { COLORS, SPACING } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { useLanguage } from '../context/LanguageContext';
 
 const MOCK_POSTS = [
     { id: '1', user: 'EcoWarrior99', action: 'Captured a Neon Fox!', likes: 24, comments: 2, time: '2h ago', scope: 'GLOBAL' },
@@ -13,6 +14,21 @@ const MOCK_POSTS = [
 export const FeedScreen = () => {
     const [viewMode, setViewMode] = useState('LIST');
     const [feedFilter, setFeedFilter] = useState('GLOBAL');
+    const { language } = useLanguage();
+
+    const texts = language === 'fr' ? {
+        title: 'Réseau global',
+        filterGlobal: 'Global',
+        filterFriends: 'Amis',
+        mapOnlyMobile: 'La carte est disponible uniquement sur mobile',
+        mapOnlyMobileSub: 'Ouvrez le projet dans Expo Go pour voir la carte',
+    } : {
+        title: 'Global Network',
+        filterGlobal: 'Global',
+        filterFriends: 'Friends',
+        mapOnlyMobile: 'Map is available on mobile only',
+        mapOnlyMobileSub: 'Open the project in Expo Go to see the map',
+    };
 
     const filteredPosts = MOCK_POSTS.filter(post =>
         feedFilter === 'GLOBAL' ? true : post.scope === 'FRIENDS'
@@ -51,7 +67,7 @@ export const FeedScreen = () => {
         <BackgroundWrapper>
             <View style={styles.container}>
                 <View style={styles.headerRow}>
-                    <Text style={styles.title}>Global Network</Text>
+                    <Text style={styles.title}>{texts.title}</Text>
                     <TouchableOpacity
                         style={styles.toggleBtn}
                         onPress={() => setViewMode(viewMode === 'LIST' ? 'MAP' : 'LIST')}
@@ -64,40 +80,42 @@ export const FeedScreen = () => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.filterRow}>
-                    <TouchableOpacity
-                        style={[
-                            styles.filterChip,
-                            feedFilter === 'GLOBAL' && styles.filterChipActive,
-                        ]}
-                        onPress={() => setFeedFilter('GLOBAL')}
-                    >
-                        <Text
+                {viewMode === 'LIST' && (
+                    <View style={styles.filterRow}>
+                        <TouchableOpacity
                             style={[
-                                styles.filterChipText,
-                                feedFilter === 'GLOBAL' && styles.filterChipTextActive,
+                                styles.filterChip,
+                                feedFilter === 'GLOBAL' && styles.filterChipActive,
                             ]}
+                            onPress={() => setFeedFilter('GLOBAL')}
                         >
-                            Global
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[
-                            styles.filterChip,
-                            feedFilter === 'FRIENDS' && styles.filterChipActive,
-                        ]}
-                        onPress={() => setFeedFilter('FRIENDS')}
-                    >
-                        <Text
+                            <Text
+                                style={[
+                                    styles.filterChipText,
+                                    feedFilter === 'GLOBAL' && styles.filterChipTextActive,
+                                ]}
+                            >
+                                {texts.filterGlobal}
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             style={[
-                                styles.filterChipText,
-                                feedFilter === 'FRIENDS' && styles.filterChipTextActive,
+                                styles.filterChip,
+                                feedFilter === 'FRIENDS' && styles.filterChipActive,
                             ]}
+                            onPress={() => setFeedFilter('FRIENDS')}
                         >
-                            Amis
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                            <Text
+                                style={[
+                                    styles.filterChipText,
+                                    feedFilter === 'FRIENDS' && styles.filterChipTextActive,
+                                ]}
+                            >
+                                {texts.filterFriends}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
 
                 {viewMode === 'LIST' ? (
                     <FlatList
@@ -110,8 +128,8 @@ export const FeedScreen = () => {
                     <View style={styles.mapContainer}>
                         <View style={[styles.map, styles.webMapFallback]}>
                             <Ionicons name="map-outline" size={64} color={COLORS.neonGreen} />
-                            <Text style={styles.webMapText}>La carte est disponible uniquement sur mobile</Text>
-                            <Text style={styles.webMapSubtext}>Ouvrez le projet dans Expo Go pour voir la carte</Text>
+                            <Text style={styles.webMapText}>{texts.mapOnlyMobile}</Text>
+                            <Text style={styles.webMapSubtext}>{texts.mapOnlyMobileSub}</Text>
                         </View>
                     </View>
                 )}

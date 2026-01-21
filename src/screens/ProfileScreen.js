@@ -11,10 +11,15 @@ import { COLORS, SPACING } from '../constants/theme';
 import { MOCK_USER_PROFILE } from '../data/mockUserProfile';
 import { MOCK_ANIMALS } from '../data/mockCollection';
 import { Ionicons } from '@expo/vector-icons';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ProfileScreen = () => {
     // Profile state
     const [profile, setProfile] = useState(MOCK_USER_PROFILE);
+
+    // Settings state
+    const { language, setLanguage } = useLanguage(); // global language
+    const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
 
     // Modal states
     const [editModalVisible, setEditModalVisible] = useState(false);
@@ -38,6 +43,38 @@ export const ProfileScreen = () => {
     // Handler for showcase selection
     const handleSaveShowcase = (showcaseAnimals) => {
         setProfile(prev => ({ ...prev, showcaseAnimals }));
+    };
+
+    const texts = language === 'fr' ? {
+        dailyMissionsTitle: 'Missions quotidiennes',
+        dailyMission1: 'Capturer 1 insecte',
+        dailyMission1Reward: 'Récompense : 1x Filet de capture',
+        dailyMission2: 'Gagner 3 combats',
+        dailyMission2Reward: 'Récompense : 50 Bio-Tokens',
+        marketTitle: 'Marché noir',
+        marketViewAll: 'Tout voir',
+        marketItem1: 'Œuf mystère',
+        marketItem2: 'Batterie temporelle',
+        settingsTitle: 'Paramètres',
+        appLanguageLabel: "Langue de l'application",
+        dropdownPlaceholder: 'Français',
+        dropdownOptionFr: 'Français',
+        dropdownOptionEn: 'English',
+    } : {
+        dailyMissionsTitle: 'Daily Missions',
+        dailyMission1: 'Capture 1 Insect Type',
+        dailyMission1Reward: 'Reward: 1x Capture Net',
+        dailyMission2: 'Win 3 Battles',
+        dailyMission2Reward: 'Reward: 50 Bio-Tokens',
+        marketTitle: 'Black Market',
+        marketViewAll: 'View All',
+        marketItem1: 'Mystery Egg',
+        marketItem2: 'Time Battery',
+        settingsTitle: 'Settings',
+        appLanguageLabel: 'App language',
+        dropdownPlaceholder: 'English',
+        dropdownOptionFr: 'French',
+        dropdownOptionEn: 'English',
     };
 
     return (
@@ -96,21 +133,21 @@ export const ProfileScreen = () => {
 
                     {/* Daily Tasks */}
                     <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Daily Missions</Text>
+                        <Text style={styles.sectionTitle}>{texts.dailyMissionsTitle}</Text>
 
                         <View style={styles.taskCard}>
                             <Ionicons name="checkbox-outline" size={24} color={COLORS.rust} />
                             <View style={styles.taskInfo}>
-                                <Text style={styles.taskText}>Capture 1 Insect Type</Text>
-                                <Text style={styles.rewardText}>Reward: 1x Capture Net</Text>
+                                <Text style={styles.taskText}>{texts.dailyMission1}</Text>
+                                <Text style={styles.rewardText}>{texts.dailyMission1Reward}</Text>
                             </View>
                         </View>
 
                         <View style={styles.taskCard}>
                             <Ionicons name="square-outline" size={24} color={COLORS.rust} />
                             <View style={styles.taskInfo}>
-                                <Text style={styles.taskText}>Win 3 Battles</Text>
-                                <Text style={styles.rewardText}>Reward: 50 Bio-Tokens</Text>
+                                <Text style={styles.taskText}>{texts.dailyMission2}</Text>
+                                <Text style={styles.rewardText}>{texts.dailyMission2Reward}</Text>
                             </View>
                         </View>
                     </View>
@@ -118,22 +155,88 @@ export const ProfileScreen = () => {
                     {/* Marketplace */}
                     <View style={styles.section}>
                         <View style={styles.marketHeader}>
-                            <Text style={styles.sectionTitle}>Black Market</Text>
+                            <Text style={styles.sectionTitle}>{texts.marketTitle}</Text>
                             <TouchableOpacity>
-                                <Text style={styles.link}>View All</Text>
+                                <Text style={styles.link}>{texts.marketViewAll}</Text>
                             </TouchableOpacity>
                         </View>
 
                         <View style={styles.marketRow}>
                             <View style={styles.marketItem}>
                                 <Text style={styles.marketEmoji}>🥚</Text>
-                                <Text style={styles.marketName}>Mystery Egg</Text>
+                                <Text style={styles.marketName}>{texts.marketItem1}</Text>
                                 <Text style={styles.price}>500 BT</Text>
                             </View>
                             <View style={styles.marketItem}>
                                 <Text style={styles.marketEmoji}>⚡</Text>
-                                <Text style={styles.marketName}>Time Battery</Text>
+                                <Text style={styles.marketName}>{texts.marketItem2}</Text>
                                 <Text style={styles.price}>100 BT</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                    {/* Settings: Language */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>{texts.settingsTitle}</Text>
+
+                        <View style={styles.languageRow}>
+                            <View style={styles.languageLabelContainer}>
+                                <Ionicons name="globe-outline" size={18} color={COLORS.rust} />
+                                <Text style={styles.languageLabel}>{texts.appLanguageLabel}</Text>
+                            </View>
+
+                            <View>
+                                <TouchableOpacity
+                                    style={styles.languageDropdown}
+                                    onPress={() => setLanguageDropdownOpen(prev => !prev)}
+                                >
+                                    <Text style={styles.languageDropdownText}>
+                                        {language === 'fr' ? texts.dropdownOptionFr : texts.dropdownOptionEn}
+                                    </Text>
+                                    <Ionicons
+                                        name={languageDropdownOpen ? 'chevron-up-outline' : 'chevron-down-outline'}
+                                        size={18}
+                                        color={COLORS.ink}
+                                    />
+                                </TouchableOpacity>
+
+                                {languageDropdownOpen && (
+                                    <View style={styles.languageDropdownMenu}>
+                                        <TouchableOpacity
+                                            style={styles.languageDropdownItem}
+                                            onPress={() => {
+                                                setLanguage('fr');
+                                                setLanguageDropdownOpen(false);
+                                            }}
+                                        >
+                                            <Text
+                                                style={[
+                                                    styles.languageDropdownItemText,
+                                                    language === 'fr' && styles.languageDropdownItemTextActive,
+                                                ]}
+                                            >
+                                                {texts.dropdownOptionFr}
+                                            </Text>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity
+                                            style={styles.languageDropdownItem}
+                                            onPress={() => {
+                                                setLanguage('en');
+                                                setLanguageDropdownOpen(false);
+                                            }}
+                                        >
+                                            <Text
+                                                style={[
+                                                    styles.languageDropdownItemText,
+                                                    language === 'en' && styles.languageDropdownItemTextActive,
+                                                ]}
+                                            >
+                                                {texts.dropdownOptionEn}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
                             </View>
                         </View>
                     </View>
@@ -194,6 +297,7 @@ const styles = StyleSheet.create({
     },
     section: {
         marginBottom: SPACING.l,
+        paddingHorizontal: SPACING.m,
     },
     sectionTitle: {
         fontSize: 18,
@@ -238,6 +342,7 @@ const styles = StyleSheet.create({
     marketRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginTop: SPACING.s,
     },
     marketItem: {
         width: '48%',
@@ -260,5 +365,58 @@ const styles = StyleSheet.create({
     price: {
         color: COLORS.neonGold,
         fontWeight: 'bold',
+    },
+    languageRow: {
+        marginTop: SPACING.s,
+        padding: SPACING.m,
+        borderRadius: SPACING.m,
+        backgroundColor: 'rgba(255,255,255,0.8)',
+        borderWidth: 1,
+        borderColor: COLORS.ink,
+    },
+    languageLabelContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: SPACING.s,
+        gap: SPACING.s,
+    },
+    languageLabel: {
+        fontSize: 14,
+        color: COLORS.ink,
+        fontWeight: '600',
+    },
+    languageDropdown: {
+        marginTop: SPACING.xs,
+        paddingHorizontal: SPACING.m,
+        paddingVertical: SPACING.s,
+        borderRadius: 999,
+        borderWidth: 1,
+        borderColor: COLORS.ink,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    languageDropdownText: {
+        color: COLORS.ink,
+        fontWeight: '500',
+    },
+    languageDropdownMenu: {
+        marginTop: SPACING.xs,
+        borderRadius: SPACING.s,
+        borderWidth: 1,
+        borderColor: COLORS.ink,
+        backgroundColor: COLORS.paper,
+        overflow: 'hidden',
+    },
+    languageDropdownItem: {
+        paddingVertical: SPACING.s,
+        paddingHorizontal: SPACING.m,
+    },
+    languageDropdownItemText: {
+        color: COLORS.ink,
+    },
+    languageDropdownItemTextActive: {
+        fontWeight: '700',
     },
 });
