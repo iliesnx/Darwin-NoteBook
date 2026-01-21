@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
-import MapView, { Marker, UrlTile } from 'react-native-maps';
-import * as Location from 'expo-location';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, Platform } from 'react-native';
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import { COLORS, SPACING } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+
+// Only import native modules on native platforms
+let MapView, Marker, UrlTile, Location;
+if (Platform.OS !== 'web') {
+    MapView = require('react-native-maps').default;
+    Marker = require('react-native-maps').Marker;
+    UrlTile = require('react-native-maps').UrlTile;
+    Location = require('expo-location');
+}
 
 const MOCK_POSTS = [
     { id: '1', user: 'EcoWarrior99', action: 'Captured a Neon Fox!', likes: 24, comments: 2, time: '2h ago', lat: 48.8566, lon: 2.3522 },
@@ -90,6 +97,14 @@ export const FeedScreen = () => {
                         keyExtractor={item => item.id}
                         contentContainerStyle={styles.list}
                     />
+                ) : Platform.OS === 'web' ? (
+                    <View style={styles.mapContainer}>
+                        <View style={[styles.map, styles.webMapFallback]}>
+                            <Ionicons name="map-outline" size={64} color={COLORS.neonGreen} />
+                            <Text style={styles.webMapText}>La carte est disponible uniquement sur mobile</Text>
+                            <Text style={styles.webMapSubtext}>Testez sur Expo Go pour voir la carte</Text>
+                        </View>
+                    </View>
                 ) : (
                     <View style={styles.mapContainer}>
                         <MapView

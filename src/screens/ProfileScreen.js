@@ -1,35 +1,98 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
+import { ProfileHeader } from '../components/ProfileHeader';
+import { FollowStats } from '../components/FollowStats';
+import { BiographySection } from '../components/BiographySection';
+import { AnimalShowcase } from '../components/AnimalShowcase';
+import { EditProfileModal } from '../components/EditProfileModal';
+import { SelectShowcaseModal } from '../components/SelectShowcaseModal';
 import { COLORS, SPACING } from '../constants/theme';
+import { MOCK_USER_PROFILE } from '../data/mockUserProfile';
+import { MOCK_ANIMALS } from '../data/mockCollection';
 import { Ionicons } from '@expo/vector-icons';
 
 export const ProfileScreen = () => {
+    // Profile state
+    const [profile, setProfile] = useState(MOCK_USER_PROFILE);
+
+    // Modal states
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [showcaseModalVisible, setShowcaseModalVisible] = useState(false);
+
+    // Handler for profile photo change
+    const handleProfilePhotoChange = (uri) => {
+        setProfile(prev => ({ ...prev, profilePhoto: uri }));
+    };
+
+    // Handler for banner change
+    const handleBannerChange = (uri) => {
+        setProfile(prev => ({ ...prev, bannerPhoto: uri }));
+    };
+
+    // Handler for saving profile edits
+    const handleSaveProfile = ({ biography }) => {
+        setProfile(prev => ({ ...prev, biography }));
+    };
+
+    // Handler for showcase selection
+    const handleSaveShowcase = (showcaseAnimals) => {
+        setProfile(prev => ({ ...prev, showcaseAnimals }));
+    };
+
     return (
         <BackgroundWrapper>
             <View style={styles.container}>
-                <ScrollView contentContainerStyle={styles.scrollContent}>
-                    {/* Header */}
-                    <View style={styles.header}>
-                        <View style={styles.avatarLarge} />
-                        <Text style={styles.username}>Explorer_One</Text>
-                        <Text style={styles.rank}>Rank: Master Naturalist</Text>
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Profile Header with Banner & Photo */}
+                    <ProfileHeader
+                        profilePhoto={profile.profilePhoto}
+                        bannerPhoto={profile.bannerPhoto}
+                        onEditProfile={() => setEditModalVisible(true)}
+                        onEditBanner={() => setEditModalVisible(true)}
+                    />
 
-                        <View style={styles.statsRow}>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statVal}>124</Text>
-                                <Text style={styles.statLabel}>Captures</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statVal}>45</Text>
-                                <Text style={styles.statLabel}>Tamed</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statVal}>1.2k</Text>
-                                <Text style={styles.statLabel}>Bio-Tokens</Text>
-                            </View>
+                    {/* Username, Rank & Biography */}
+                    <BiographySection
+                        username={profile.username}
+                        rank={profile.rank}
+                        biography={profile.biography}
+                        onEditPress={() => setEditModalVisible(true)}
+                    />
+
+                    {/* Followers / Following Stats */}
+                    <FollowStats
+                        followers={profile.followers}
+                        following={profile.following}
+                        onFollowersPress={() => { }}
+                        onFollowingPress={() => { }}
+                    />
+
+                    {/* Stats Row (Captures, Tamed, Bio-Tokens) */}
+                    <View style={styles.statsRow}>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statVal}>{profile.stats.captures}</Text>
+                            <Text style={styles.statLabel}>Captures</Text>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statVal}>{profile.stats.tamed}</Text>
+                            <Text style={styles.statLabel}>Tamed</Text>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Text style={styles.statVal}>{profile.stats.bioTokens >= 1000 ? (profile.stats.bioTokens / 1000).toFixed(1) + 'k' : profile.stats.bioTokens}</Text>
+                            <Text style={styles.statLabel}>Bio-Tokens</Text>
                         </View>
                     </View>
+
+                    {/* Animal Showcase (Vitrine) */}
+                    <AnimalShowcase
+                        showcaseAnimals={profile.showcaseAnimals}
+                        allAnimals={MOCK_ANIMALS}
+                        onEditShowcase={() => setShowcaseModalVisible(true)}
+                    />
 
                     {/* Daily Tasks */}
                     <View style={styles.section}>
@@ -76,6 +139,25 @@ export const ProfileScreen = () => {
                     </View>
                 </ScrollView>
             </View>
+
+            {/* Edit Profile Modal */}
+            <EditProfileModal
+                visible={editModalVisible}
+                onClose={() => setEditModalVisible(false)}
+                currentBio={profile.biography}
+                onSave={handleSaveProfile}
+                onPickProfilePhoto={handleProfilePhotoChange}
+                onPickBanner={handleBannerChange}
+            />
+
+            {/* Select Showcase Modal */}
+            <SelectShowcaseModal
+                visible={showcaseModalVisible}
+                onClose={() => setShowcaseModalVisible(false)}
+                allAnimals={MOCK_ANIMALS}
+                currentShowcase={profile.showcaseAnimals}
+                onSave={handleSaveShowcase}
+            />
         </BackgroundWrapper>
     );
 };
@@ -83,34 +165,11 @@ export const ProfileScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 60,
+        paddingTop: 50,
     },
     scrollContent: {
         paddingBottom: 100,
         paddingHorizontal: SPACING.m,
-    },
-    header: {
-        alignItems: 'center',
-        marginBottom: SPACING.l,
-    },
-    avatarLarge: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: COLORS.neonGreen,
-        marginBottom: SPACING.s,
-        borderWidth: 4,
-        borderColor: COLORS.paperDark,
-    },
-    username: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: COLORS.ink,
-    },
-    rank: {
-        fontSize: 14,
-        color: COLORS.rust,
-        marginBottom: SPACING.m,
     },
     statsRow: {
         flexDirection: 'row',
@@ -119,6 +178,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.6)',
         borderRadius: SPACING.s,
         padding: SPACING.m,
+        marginBottom: SPACING.l,
     },
     statItem: {
         alignItems: 'center',
