@@ -23,7 +23,7 @@ Le joueur incarne un **Observateur**, équipé du *NaturaDex*, un outil capable 
 
 ### 1. Capture
 Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une fois que la photo est prise, l'espèce est identifié par l'application et un score de netteté de la photo est calculé.
-* **Capture :** Via l'appareil photo AR.
+* **Capture :** Via l'appareil photo.
 * **Algorithme de Netteté :** Analyse la stabilité, le focus et le cadrage (Score de 0 à 100).
 * **IVs (Individual Values) :** Le score de netteté définit directement les statistiques de l'animal.
     * *Photo Floue (score < 30)* = Animal "Instable" (Faibles stats, glitch visuel).
