@@ -22,7 +22,7 @@ Le joueur incarne un **Observateur**, équipé du *NaturaDex*, un outil capable 
 ## 🎮 Mécaniques de Jeu
 
 ### 1. Capture
-Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une fois que la photo est prise, l'espèce est identifié par l'application et un score de netteté de la photo est calculé.
+Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une fois la photo prise, l'espèce est identifiée par l'application et un score de netteté de la photo est calculé.
 * **Capture :** Via l'appareil photo.
 * **Algorithme de Netteté :** Analyse la stabilité, le focus et le cadrage (Score de 0 à 100).
 * **IVs (Individual Values) :** Le score de netteté définit directement les statistiques de l'animal.
@@ -35,10 +35,10 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une foi
 * **Combo :** Associer une plante spécifique à un animal (ex: Panda + Bambou) booste ses capacités et sa résistance aux Vides.
 
 ### 3. Duel
-Dans l'onglet Duel de l'application le joueur peux combattre façe a d'autres joueurs mais aussi face a des Vides avec les animaux qu'il a capturé.
-* **Méchanique de combat** système de jeux simple, les animaux sont face a face et se combatte tour par tour avec des attaques.
-    * *Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant quand même qu'ils ont un niveau similaire.
-    * *Partie Carrière avec des niveau qui sont des combats contre des vides (de types différents et de force différentes).
+Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres joueurs mais aussi face a des Vides avec les animaux qu'il a capturé.
+* **Méchanique de combat** système de jeux simple, les animaux se font face et combattent tour par tour avec des attaques.
+    * *Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire.
+    * *Partie Carrière avec un système de progression par paliers qui sont des combats contre des vides (de types différents et de force différentes) suivi régulièrement de combat contre des boss.
 
 ## 🎨 Identité Visuelle (UI/UX)
 
