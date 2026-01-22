@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { BackgroundWrapper } from '../components/BackgroundWrapper';
 import { COLORS, SPACING } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { useLanguage } from '../context/LanguageContext';
 
-// Only import native modules on native platforms
-let MapView, Marker, UrlTile, Location;
-if (Platform.OS !== 'web') {
-    MapView = require('react-native-maps').default;
-    Marker = require('react-native-maps').Marker;
-    UrlTile = require('react-native-maps').UrlTile;
-    Location = require('expo-location');
-}
-
 const MOCK_POSTS = [
-    { id: '1', user: 'EcoWarrior99', action: 'Captured a Neon Fox!', likes: 24, comments: 2, time: '2h ago', lat: 48.8566, lon: 2.3522, scope: 'GLOBAL' },
-    { id: '2', user: 'SolarSage', action: 'Tamed a Legendary Solar Hawk.', likes: 156, comments: 45, time: '5h ago', lat: 48.8606, lon: 2.3376, scope: 'GLOBAL' },
-    { id: '3', user: 'CityScout', action: 'Found a rare Glitch Moth in Sector 7.', likes: 89, comments: 12, time: '1d ago', lat: 48.8529, lon: 2.3499, scope: 'FRIENDS' },
+    { id: '1', user: 'EcoWarrior99', action: 'Captured a Neon Fox!', likes: 24, comments: 2, time: '2h ago', scope: 'GLOBAL' },
+    { id: '2', user: 'SolarSage', action: 'Tamed a Legendary Solar Hawk.', likes: 156, comments: 45, time: '5h ago', scope: 'GLOBAL' },
+    { id: '3', user: 'CityScout', action: 'Found a rare Glitch Moth in Sector 7.', likes: 89, comments: 12, time: '1d ago', scope: 'FRIENDS' },
 ];
 
 export const FeedScreen = () => {
-    const [viewMode, setViewMode] = useState('LIST'); // LIST or MAP
-    const [feedFilter, setFeedFilter] = useState('GLOBAL'); // GLOBAL or FRIENDS
-    const [location, setLocation] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [viewMode, setViewMode] = useState('LIST');
+    const [feedFilter, setFeedFilter] = useState('GLOBAL');
     const { language } = useLanguage();
 
     const texts = language === 'fr' ? {
@@ -32,34 +21,14 @@ export const FeedScreen = () => {
         filterGlobal: 'Global',
         filterFriends: 'Amis',
         mapOnlyMobile: 'La carte est disponible uniquement sur mobile',
-        mapOnlyMobileSub: 'Testez sur Expo Go pour voir la carte',
+        mapOnlyMobileSub: 'Ouvrez le projet dans Expo Go pour voir la carte',
     } : {
         title: 'Global Network',
         filterGlobal: 'Global',
         filterFriends: 'Friends',
         mapOnlyMobile: 'Map is available on mobile only',
-        mapOnlyMobileSub: 'Open in Expo Go to see the map',
+        mapOnlyMobileSub: 'Open the project in Expo Go to see the map',
     };
-
-    useEffect(() => {
-        (async () => {
-            if (viewMode === 'MAP' && !location) {
-                let { status } = await Location.requestForegroundPermissionsAsync();
-                if (status !== 'granted') {
-                    setErrorMsg('Permission to access location was denied');
-                    Alert.alert("Permission denied", "We need location access to show your area.");
-                    return;
-                }
-
-                try {
-                    let location = await Location.getCurrentPositionAsync({});
-                    setLocation(location);
-                } catch (e) {
-                    Alert.alert("Error", "Could not fetch location.");
-                }
-            }
-        })();
-    }, [viewMode]);
 
     const filteredPosts = MOCK_POSTS.filter(post =>
         feedFilter === 'GLOBAL' ? true : post.scope === 'FRIENDS'
@@ -104,7 +73,7 @@ export const FeedScreen = () => {
                         onPress={() => setViewMode(viewMode === 'LIST' ? 'MAP' : 'LIST')}
                     >
                         <Ionicons
-                            name={viewMode === 'LIST' ? "map-outline" : "list-outline"}
+                            name={viewMode === 'LIST' ? 'map-outline' : 'list-outline'}
                             size={24}
                             color={COLORS.ink}
                         />
@@ -152,64 +121,15 @@ export const FeedScreen = () => {
                     <FlatList
                         data={filteredPosts}
                         renderItem={renderPost}
-                        keyExtractor={item => item.id}
+                        keyExtractor={(item) => item.id}
                         contentContainerStyle={styles.list}
                     />
-                ) : Platform.OS === 'web' ? (
+                ) : (
                     <View style={styles.mapContainer}>
                         <View style={[styles.map, styles.webMapFallback]}>
                             <Ionicons name="map-outline" size={64} color={COLORS.neonGreen} />
                             <Text style={styles.webMapText}>{texts.mapOnlyMobile}</Text>
                             <Text style={styles.webMapSubtext}>{texts.mapOnlyMobileSub}</Text>
-                        </View>
-                    </View>
-                ) : (
-                    <View style={styles.mapContainer}>
-                        <MapView
-                            style={styles.map}
-                            region={location ? {
-                                latitude: location.coords.latitude,
-                                longitude: location.coords.longitude,
-                                latitudeDelta: 0.01,
-                                longitudeDelta: 0.01,
-                            } : {
-                                latitude: 48.8566, // Fallback (Paris)
-                                longitude: 2.3522,
-                                latitudeDelta: 0.05,
-                                longitudeDelta: 0.05,
-                            }}
-                            showsUserLocation={true}
-                            scrollEnabled={true}
-                            zoomEnabled={true}
-                            rotateEnabled={false} // Often causes confusion
-                            pitchEnabled={false}
-                        >
-                            {/* OpenStreetMap Tiles */}
-                            <UrlTile
-                                urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                maximumZ={19}
-                                flipY={false}
-                            />
-
-                            {filteredPosts.map(post => (
-                                <Marker
-                                    key={post.id}
-                                    coordinate={{ latitude: post.lat, longitude: post.lon }}
-                                    title={post.user}
-                                    description={post.action}
-                                >
-                                    <View style={styles.markerContainer}>
-                                        <View style={styles.markerDot} />
-                                    </View>
-                                </Marker>
-                            ))}
-                        </MapView>
-
-                        {/* Map Overlay Info */}
-                        <View style={styles.mapOverlay}>
-                            <Text style={styles.mapOverlayText}>
-                                {location ? "Tracking Location..." : "Locating Signal..."}
-                            </Text>
                         </View>
                     </View>
                 )}
@@ -235,7 +155,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: COLORS.ink,
         textAlign: 'center',
-        // Removed marginBottom from here as it's now handled by headerRow's marginBottom
     },
     toggleBtn: {
         position: 'absolute',
@@ -330,11 +249,10 @@ const styles = StyleSheet.create({
         marginLeft: 4,
         color: COLORS.ink,
     },
-    // Map Styles
     mapContainer: {
         flex: 1,
         marginHorizontal: SPACING.m,
-        marginBottom: 100, // Tab bar
+        marginBottom: 100,
         borderRadius: SPACING.m,
         overflow: 'hidden',
         borderWidth: 2,
@@ -344,27 +262,23 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    markerContainer: {
-        padding: 5,
+    webMapFallback: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        padding: SPACING.m,
     },
-    markerDot: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        backgroundColor: COLORS.neonGreen,
-        borderWidth: 2,
-        borderColor: COLORS.ink,
-    },
-    mapOverlay: {
-        position: 'absolute',
-        bottom: SPACING.m,
-        left: SPACING.m,
-        backgroundColor: 'rgba(0,0,0,0.7)',
-        padding: SPACING.s,
-        borderRadius: SPACING.s,
-    },
-    mapOverlayText: {
+    webMapText: {
         color: COLORS.neonGreen,
+        fontSize: 18,
         fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: SPACING.s,
+    },
+    webMapSubtext: {
+        color: COLORS.paper,
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: SPACING.s,
     },
 });
