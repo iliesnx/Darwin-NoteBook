@@ -8,7 +8,7 @@
 
 ## 📖 À Propos
 
-**NaturaDex** est une application mobile de collection en Réalité Augmentée (AR) qui gamifie la découverte de la biodiversité. À la croisée des chemins entre *Pokémon GO* et un outil de science participative.
+**NaturaDex** est une application mobile de collection qui gamifie la découverte de la biodiversité. À la croisée des chemins entre *Pokémon GO* et un outil de science participative.
 
 ## 🌍 Le Lore
 
@@ -37,7 +37,7 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une foi
 ### 3. Duel
 Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres joueurs mais aussi face a des Vides avec les animaux qu'il a capturé.
 * **Méchanique de combat** système de jeux simple, les animaux se font face et combattent tour par tour avec des attaques.
-    * *Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire.
+    * *Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire (niveau de joueur et MMR).
     * *Partie Carrière avec un système de progression par paliers qui sont des combats contre des vides (de types différents et de force différentes) suivi régulièrement de combat contre des boss.
 
 ## 🎨 Identité Visuelle (UI/UX)
