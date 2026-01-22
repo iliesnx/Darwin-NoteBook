@@ -26,8 +26,9 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une foi
 * **Capture :** Via l'appareil photo.
 * **Algorithme de Netteté :** Analyse la stabilité, le focus et le cadrage (Score de 0 à 100).
 * **IVs (Individual Values) :** Le score de netteté définit directement les statistiques de l'animal.
-    * *Photo Floue (score < 30)* = Animal "Instable" (Faibles stats, glitch visuel).
-    * *Photo Parfaite (score > 90)* = Animal "S-Rank" (Stats maximales, aura dorée).
+    * *Photo Floue* = exemple 30 point, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
+    * *Photo Parfaite* = exemple 90 point, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
+* Pour les plante il n'y a pas le calcul de netteté ni les IV
 
 ### 2. Collection
 * **Faune :** Les unités de combat/défense.
@@ -36,9 +37,22 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une foi
 
 ### 3. Duel
 Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres joueurs mais aussi face a des Vides avec les animaux qu'il a capturé.
-* **Méchanique de combat** système de jeux simple, les animaux se font face et combattent tour par tour avec des attaques.
-    * *Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire (niveau de joueur et MMR).
-    * *Partie Carrière avec un système de progression par paliers qui sont des combats contre des vides (de types différents et de force différentes) suivi régulièrement de combat contre des boss.
+* **Type de gameplay** système de jeux simple, les animaux se font face et combattent tour par tour avec des attaques.
+    * Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire (niveau de joueur et MMR).
+    * Partie Carrière avec un système de progression par paliers qui sont des combats contre des vides (de types différents et de force différentes) suivi régulièrement de combat contre des boss.
+* **Méchanique de combat**
+    * Tour par tour de type pokemon sur DS, 4 choix: Attaque, Attaque spéciale, Défense et Fuite.
+    * L'animal le plus rapide agis en premier
+    * A chaque attaque on calcul a partir de la rapidité des deux animaux et de l'aléatoire si il y a une esquive ou non
+    * l'attaque spéciale peut être utilisé tout les 3 tours
+ 
+### 4. Statistique
+Les statistiques des animaux sont calculé de cette façon:
+HP: specie.hp + (level * (iv.hp / 10))
+Attack: specie.attack + (level * (iv.attack / 10))
+Defense: specie.defense + (level * (iv.defense / 10))
+Speed: specie.speed + (level * (iv.speed / 10))
+Special Attack: attack + plant.level
 
 ## 🎨 Identité Visuelle (UI/UX)
 
