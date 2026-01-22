@@ -48,11 +48,11 @@ Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres jou
  
 ### 4. Statistique
 Les statistiques des animaux sont calculé de cette façon:
-HP: specie.hp + (level * (iv.hp / 10))
-Attack: specie.attack + (level * (iv.attack / 10))
-Defense: specie.defense + (level * (iv.defense / 10))
-Speed: specie.speed + (level * (iv.speed / 10))
-Special Attack: attack + plant.level
+* HP: specie.hp + (level * (iv.hp / 10))
+* Attack: specie.attack + (level * (iv.attack / 10))
+* Defense: specie.defense + (level * (iv.defense / 10))
+* Speed: specie.speed + (level * (iv.speed / 10))
+* Special Attack: attack + plant.level
 
 ## 🎨 Identité Visuelle (UI/UX)
 
