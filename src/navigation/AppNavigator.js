@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants/theme';
+import { ShopScreen } from '../screens/ShopScreen';
 
 // Screens
 import {
@@ -81,6 +82,15 @@ export const AppNavigator = () => {
                     options={{
                         tabBarIcon: ({ focused }) => (
                             <Ionicons name="albums-outline" size={24} color={focused ? COLORS.rust : COLORS.ink} />
+                        )
+                    }}
+                />
+                <Tab.Screen
+                    name="Shop"
+                    component={ShopScreen}
+                    options={{
+                        tabBarIcon: ({ focused }) => (
+                            <Ionicons name="cart-outline" size={24} color={focused ? COLORS.success : COLORS.ink} />
                         )
                     }}
                 />
