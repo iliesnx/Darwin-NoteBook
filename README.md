@@ -45,6 +45,8 @@ Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres jou
     * L'animal le plus rapide agis en premier
     * A chaque attaque on calcul a partir de la rapidité des deux animaux et de l'aléatoire si il y a une esquive ou non
     * l'attaque spéciale peut être utilisée tous les 3 tours
+
+https://github.com/user-attachments/assets/d0354c74-91cc-454d-b909-2361e6a05af9
  
 ### 4. Statistique
 Les statistiques des animaux sont calculés de cette façon:
