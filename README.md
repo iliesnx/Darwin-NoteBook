@@ -84,5 +84,6 @@ L'identité graphique repose sur le concept **"Solarpunk Utility"** : un mix ent
 * **Framework :** Expo Go (pour itération rapide iOS/Android)
 * **3D :** Three.js
 * **Design :** Figma (Wireframes & Prototyping)
+* **Serveur :** Supabase (backend + database)
 
 https://miro.com/app/board/uXjVGNq9eBE=/
