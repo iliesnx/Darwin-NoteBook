@@ -17,12 +17,12 @@ Dans un monde futuriste, une anomalie cosmique appelée **"L'Érosion"** (une fo
 Le joueur incarne un **Observateur**, équipé du *NaturaDex*, un outil capable de :
 1.  **Scanner** les animaux et végétaux menacés.
 2.  **Stabiliser** leur "Essence" en prenant des clichés nets.
-3.  **Défendre** les écosystèmes contre les "Vides" (Entité lié a l'érosion) en matérialisant les entités collectés.
+3.  **Défendre** les écosystèmes contre les "Vides" (Entités liées à l'érosion) en matérialisant les animaux et végétaux collectés.
 
 ## 🎮 Mécaniques de Jeu
 
 ### 1. Capture
-Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une fois la photo prise, l'espèce est identifiée par l'application et un score de netteté de la photo est calculé.
+Le joueur doit prendre en photo des animaux qu'il voit dans la vraie vie, une fois la photo prise, l'espèce est identifiée par l'application et un score de netteté de la photo est calculé.
 * **Capture :** Via l'appareil photo.
 * **Algorithme de Netteté :** Analyse la stabilité, le focus et le cadrage (Score de 0 à 100).
 * **IVs (Individual Values) :** Le score de netteté définit directement les statistiques de l'animal.
@@ -36,18 +36,18 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vrai vie, une foi
 * **Combo :** Associer une plante spécifique à un animal (ex: Panda + Bambou) booste ses capacités et sa résistance aux Vides.
 
 ### 3. Duel
-Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres joueurs mais aussi face a des Vides avec les animaux qu'il a capturé.
+Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres joueurs mais aussi face à des Vides avec les animaux qu'il a capturé.
 * **Type de gameplay** système de jeux simple, les animaux se font face et combattent tour par tour avec des attaques.
-    * Partie Online avec un système de MMR pour mettre aléatoirement les gens en combat ensemble mais en vérifiant qu'ils aient un niveau similaire (niveau de joueur et MMR).
-    * Partie Carrière avec un système de progression par paliers qui sont des combats contre des vides (de types différents et de force différentes) suivi régulièrement de combat contre des boss.
+    * Partie Online avec un système de MMR (Match Making Rank) pour mettre aléatoirement les joueurs ensemble mais en vérifiant qu'ils aient un niveau similaire (niveau de joueur et MMR).
+    * Partie Carrière avec un système de progression par paliers qui sont des combats contre des "Vides" (de types différents et de force différentes) suivi régulièrement de combat contre des "Vides" plus puissants (boss).
 * **Méchanique de combat**
     * Tour par tour de type pokemon sur DS, 4 choix: Attaque, Attaque spéciale, Défense et Fuite.
     * L'animal le plus rapide agis en premier
     * A chaque attaque on calcul a partir de la rapidité des deux animaux et de l'aléatoire si il y a une esquive ou non
-    * l'attaque spéciale peut être utilisé tout les 3 tours
+    * l'attaque spéciale peut être utilisée tous les 3 tours
  
 ### 4. Statistique
-Les statistiques des animaux sont calculé de cette façon:
+Les statistiques des animaux sont calculés de cette façon:
 * HP: specie.hp + (level * (iv.hp / 10))
 * Attack: specie.attack + (level * (iv.attack / 10))
 * Defense: specie.defense + (level * (iv.defense / 10))
