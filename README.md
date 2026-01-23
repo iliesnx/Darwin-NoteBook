@@ -54,6 +54,37 @@ Les statistiques des animaux sont calculés de cette façon:
 * Speed: specie.speed + (level * (iv.speed / 10))
 * Special Attack: attack + plant.level
 
+## 🎮 Compte rendu des POC
+
+### POC Combat (Gameplay & UI)
+
+Objectif : Valider un système de combat tour par tour avec une esthétique "Frutiger Aero".
+* Fonctionnalités : Boucle de jeu complète (Attaque/Défense/Soin) avec gestion RNG (aléatoire) et conditions de victoire/défaite.
+* Interface : UI soignée avec animations fluides (barres de vie) et design complexe (transparence, textures glossy).
+* Tech Clés : React Native, Hooks (gestion d'état), Animated API.
+
+### POC ThreeJS (Intégration 3D)
+
+Objectif : Intégrer une scène 3D performante dans une application mobile hybride.
+* Rendu : Scène mixte (Canvas WebGL + Interface native) avec un style rétro-pixelisé (PS1/DS).
+* Contenu : Modèles 3D animés (GLTF) avec blending fluide et effets visuels avancés (Shaders pour l'herbe, particules de soin, ombres dynamiques).
+* Tech Clés : React Three Fiber (R3F), Three.js, GLSL (Shaders).
+
+### POC Multijoueur (Serveur Autoritaire)
+
+Objectif : Passer d'un jeu local à un multijoueur temps réel sécurisé.
+* Architecture : Modèle "Client-Serveur Autoritaire" (le serveur Node.js décide, le mobile affiche) pour éviter la triche.
+* Mécaniques : Matchmaking (files d'attente), création dynamique de "Rooms" et synchronisation du chargement des joueurs.
+* Performance : Testé pour supporter 2000 bots simultanés.
+* Tech Clés : Node.js, Socket.io (WebSockets).
+
+### POC Caméra & IA (Reconnaissance)
+
+Objectif : Gameplay type "Pokémon GO" avec reconnaissance réelle d'espèces animales.
+* Pipeline IA : Photo prise via l'app -> Envoi au serveur Python -> Analyse par SpeciesNet v5.0 -> Retour des données (Nom scientifique, score de confiance).
+* Robustesse : Gestion d'erreur avancée avec un mode "Simulation Offline" si le serveur ne répond pas, pour éviter les crashs.
+* Tech Clés : Python (Flask), SpeciesNet (PyTorch), Expo Camera.
+
 ## 🎨 Identité Visuelle (UI/UX)
 
 https://www.figma.com/design/N25YY0QI7P3XTjiBcTj1YM/Untitled?node-id=0-1&p=f&t=bpbpMT6nnry5x14v-0
