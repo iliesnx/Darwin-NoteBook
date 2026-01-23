@@ -47,7 +47,7 @@ Dans l'onglet Duel de l'application le joueur peux combattre face a d'autres jou
     * l'attaque spéciale peut être utilisée tous les 3 tours
 
 * **Démonstration**
-    * Voici une démonstration du gameplay pour l'instant, il ne faut pas tenir compte des graphismes pour l'instant ce n'est qu'une maquette :
+    * Voici une démonstration du gameplay, il ne faut pas tenir compte des graphismes pour l'instant ce n'est qu'une maquette :
 
 https://github.com/user-attachments/assets/d0354c74-91cc-454d-b909-2361e6a05af9
  
