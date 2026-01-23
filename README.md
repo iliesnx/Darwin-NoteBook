@@ -90,6 +90,25 @@ Objectif : Gameplay type "Pokémon GO" avec reconnaissance réelle d'espèces an
 * Robustesse : Gestion d'erreur avancée avec un mode "Simulation Offline" si le serveur ne répond pas, pour éviter les crashs.
 * Tech Clés : Python (Flask), SpeciesNet (PyTorch), Expo Camera.
 
+### POC Calcul de Netteté (Gameplay & Qualité)
+
+Objectif : Lier la puissance de la créature capturée à la qualité technique de la photo (Mécanique "Qualité = Puissance").
+* Algorithme : Utilisation de la Variance du Laplacien (Vision par ordinateur) pour mesurer la quantité de contours et détecter le flou.
+* Système de Rang : Normalisation du score de netteté (0 à 100) pour classer la créature :
+   Instable (Flou)
+   Stable (Net)
+   S-Rank (Parfait)
+* Impact : Ce score génère directement les statistiques de combat de l'animal.
+
+### POC Détection de Plante (API Pl@ntNet)
+
+Objectif : Valider l'identification botanique via une API externe reconnue.
+* Technologie : Intégration de l'API Pl@ntNet.
+* Performance :
+    Précision > 90% sur les plantes courantes.
+    Score de confiance > 80% sur des photos claires.
+* Robustesse : Identification correcte même sur des sujets éloignés (malgré une baisse logique de l'indice de confiance).
+
 ## 🎨 Identité Visuelle (UI/UX)
 
 https://www.figma.com/design/N25YY0QI7P3XTjiBcTj1YM/Untitled?node-id=0-1&p=f&t=bpbpMT6nnry5x14v-0
