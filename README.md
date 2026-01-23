@@ -26,8 +26,8 @@ Le joueur doit prendre en photo des animaux qu'il voit dans la vraie vie, une fo
 * **Capture :** Via l'appareil photo.
 * **Algorithme de Netteté :** Analyse la stabilité, le focus et le cadrage (Score de 0 à 100).
 * **IVs (Individual Values) :** Le score de netteté définit directement les statistiques de l'animal.
-    * *Photo Floue* = exemple 30 point, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
-    * *Photo Parfaite* = exemple 90 point, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
+    * *Photo Floue* = exemple 30 points, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
+    * *Photo Parfaite* = exemple 90 points, les points sont attribué aux différents IV (?/25) aléatoirement (HP, Speed, Attack et Defense).
 * Pour les plante il n'y a pas le calcul de netteté ni les IV
 
 ### 2. Collection
